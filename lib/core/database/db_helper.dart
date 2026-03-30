@@ -11,7 +11,7 @@ class DbHelper {
   }
 
   Future<Database> _initDb() async {
-    String path = join(await getDatabasesPath(), 'rick_morty.db');
+    String path = join(await getDatabasesPath(), 'rick_morty_app.db');
     return await openDatabase(
       path,
       version: 1,

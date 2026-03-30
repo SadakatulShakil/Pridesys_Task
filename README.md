@@ -71,4 +71,5 @@ When the Repository fetches data, it performs a join-like operation in Dart:
 ---
 
 ## Walkthrough
-A short video explaining the architecture and demonstrating the offline editing features can be found here: **[Link to YouTube Video]**.
+* **Video Link**: A short video explaining the architecture and demonstrating the offline editing features can be found here: **[youtube.com/shorts/nAnoQeSh86w?si=pZG_MJKH30xInROU]**.
+* **APK Link**: An APK Link, the Featured App can be found here: **[https://drive.google.com/file/d/1Qgl1q8yuRkqNPKw9IvMYDWL1uDPfB1eM/view?usp=sharing]**.
