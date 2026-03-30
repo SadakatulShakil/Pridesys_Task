@@ -6,7 +6,6 @@ class CharacterController extends GetxController {
   final CharacterRepositoryImpl repository;
   CharacterController(this.repository);
 
-  // Reactive list for the UI [cite: 6, 70]
   var characters = <CharacterEntity>[].obs;
   var isLoading = false.obs;
   int page = 1;
@@ -17,7 +16,7 @@ class CharacterController extends GetxController {
     super.onInit();
   }
 
-  // Fetch and append characters (supports pagination) [cite: 11, 16]
+  // Fetch and append characters
   Future<void> loadCharacters() async {
     if (isLoading.value) return;
     isLoading(true);
@@ -34,26 +33,26 @@ class CharacterController extends GetxController {
     }
   }
 
-  // Requirement 2.4: Update character details locally [cite: 33, 43, 47]
+  // Update character details locally
   Future<void> updateCharacter(CharacterEntity updatedChar) async {
-    // 1. Persist to SQLite via Repository
+    // SQLite via Repository
     await repository.saveLocalEdit(updatedChar);
 
-    // 2. Update reactive list to reflect changes in UI immediately [cite: 44, 45, 46]
+    // Update list to changes in UI
     int index = characters.indexWhere((element) => element.id == updatedChar.id);
     if (index != -1) {
       characters[index] = updatedChar.copyWith(isEdited: true);
     }
   }
 
-  // Requirement 2.3: Toggle favorites locally [cite: 28, 29, 31]
+  //Toggle favorites locally
   Future<void> toggleFav(CharacterEntity character) async {
     final newStatus = !character.isFavorite;
 
-    // 1. Persist favorite status to SQLite [cite: 59, 101]
+    // status to SQLite
     await repository.toggleFavorite(character.id, newStatus);
 
-    // 2. Update local state
+    // Update local state
     int index = characters.indexWhere((element) => element.id == character.id);
     if (index != -1) {
       characters[index] = character.copyWith(isFavorite: newStatus);

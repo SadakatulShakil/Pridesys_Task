@@ -18,7 +18,7 @@ class _CharacterListPageState extends State<CharacterListPage> {
   @override
   void initState() {
     super.initState();
-    // Requirement 2.1: Infinite scroll pagination implementation
+    // Infinite scroll pagination implementation
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
         controller.loadCharacters(); // [cite: 81]
@@ -49,7 +49,7 @@ class _CharacterListPageState extends State<CharacterListPage> {
         child: CustomScrollView(
           controller: _scrollController,
           slivers: [
-            // Standardizing the AppBar so the title aligns with the refresh icon
+
             SliverAppBar(
               pinned: true, // Keeps the bar visible at the top
               floating: true, // Re-appears immediately when scrolling up
@@ -57,11 +57,10 @@ class _CharacterListPageState extends State<CharacterListPage> {
               centerTitle: true,
               backgroundColor: Colors.white.withOpacity(0.9),
               elevation: 0,
-              // Title is now fixed in the bar to align with the refresh button
               title: Text(
                 "CHARACTERS",
                 style: TextStyle(
-                  fontWeight: FontWeight.w800, // Vibrant but appropriate weight
+                  fontWeight: FontWeight.w800,
                   letterSpacing: 1.5,
                   color: Colors.black87,
                   fontSize: 20,
@@ -75,16 +74,14 @@ class _CharacterListPageState extends State<CharacterListPage> {
               ],
             ),
 
-            // Reactive Content [cite: 6, 94]
             Obx(() {
-              // Initial Loading State [cite: 81, 103]
               if (controller.isLoading.value && controller.characters.isEmpty) {
                 return const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),
                 );
               }
 
-              // Empty or Error State Handling [cite: 82, 83]
+              // Error State Handling
               if (controller.characters.isEmpty) {
                 return SliverFillRemaining(
                   child: Center(
@@ -109,7 +106,6 @@ class _CharacterListPageState extends State<CharacterListPage> {
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                      // Pagination Loading Indicator [cite: 81, 104]
                       if (index == controller.characters.length) {
                         return const Padding(
                           padding: EdgeInsets.symmetric(vertical: 32.0),
@@ -130,7 +126,6 @@ class _CharacterListPageState extends State<CharacterListPage> {
                         ),
                       );
                     },
-                    // Infinite scroll: Adds 1 extra slot for the spinner [cite: 16, 81]
                     childCount: controller.characters.length + (controller.isLoading.value ? 1 : 0),
                   ),
                 ),

@@ -23,7 +23,6 @@ class CharacterCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
-        // Neubrutalist thick border & shadow for "Cartoon" feel
         border: Border.all(color: Colors.black, width: 3),
         boxShadow: const [
           BoxShadow(
@@ -38,7 +37,6 @@ class CharacterCard extends StatelessWidget {
           onTap: onTap,
           child: Row(
             children: [
-              // 1. Character Image with Hero Transition [cite: 12, 26]
               Hero(
                 tag: 'hero-${DateTime.now()}',
                 child: Container(
@@ -50,14 +48,12 @@ class CharacterCard extends StatelessWidget {
                   child: Image.network(
                     character.image,
                     fit: BoxFit.cover,
-                    // Error builder for offline support safety [cite: 51]
                     errorBuilder: (context, error, stackTrace) =>
                     const Icon(Icons.broken_image, size: 50),
                   ),
                 ),
               ),
 
-              // 2. Character Details [cite: 13, 14, 15]
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -91,7 +87,6 @@ class CharacterCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 6),
 
-                      // Species and Status Tags [cite: 14, 15]
                       Row(
                         children: [
                           _buildMiniBadge(character.status, _getStatusColor(character.status)),
@@ -109,7 +104,6 @@ class CharacterCard extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-                      // Requirement 2.4: Local Edit Badge
                       if (character.isEdited)
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -138,7 +132,6 @@ class CharacterCard extends StatelessWidget {
     );
   }
 
-  // Helper for Status Badge
   Widget _buildMiniBadge(String text, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),

@@ -10,7 +10,6 @@ class FavoritesPage extends GetView<CharacterController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Gradient background to match the "Cartoon" aesthetic
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -24,7 +23,6 @@ class FavoritesPage extends GetView<CharacterController> {
         ),
         child: CustomScrollView(
           slivers: [
-            // Vibrant Header
             SliverAppBar(
               floating: true,
               expandedHeight: 120.0,
@@ -41,21 +39,19 @@ class FavoritesPage extends GetView<CharacterController> {
               ),
             ),
 
-            // Reactive Content
             Obx(() {
-              // Derived state: Filter characters marked as favorite [cite: 29]
+
               final favoriteCharacters = controller.characters
                   .where((char) => char.isFavorite)
                   .toList();
 
-              // Empty State Handling [cite: 83]
+              // Empty State Handling
               if (favoriteCharacters.isEmpty) {
                 return SliverFillRemaining(
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Large, playful icon for kids
                         Icon(Icons.heart_broken_rounded,
                             size: 100, color: Colors.grey.shade300),
                         const SizedBox(height: 20),

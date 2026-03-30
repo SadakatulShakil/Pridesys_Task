@@ -19,7 +19,6 @@ class CharacterEntity {
     this.isEdited = false,
   });
 
-  // Creates a new instance with updated values [cite: 64, 65]
   CharacterEntity copyWith({
     String? name,
     String? status,

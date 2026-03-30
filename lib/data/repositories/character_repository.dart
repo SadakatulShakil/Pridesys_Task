@@ -14,7 +14,7 @@ class CharacterRepositoryImpl {
     final db = await dbHelper.db;
 
     try {
-      // 1. Fetch Remote Data [cite: 11]
+      // Fetch Remote Data
       final response = await client.get(
           Uri.parse('https://rickandmortyapi.com/api/character?page=$page')
       );
@@ -23,7 +23,7 @@ class CharacterRepositoryImpl {
         final data = json.decode(response.body);
         final List results = data['results'];
 
-        // 2. Cache API responses locally for offline support [cite: 49, 57]
+        // Cache API responses locally for offline support
         for (var item in results) {
           await db.insert('characters', {
             'id': item['id'],
@@ -39,10 +39,11 @@ class CharacterRepositoryImpl {
         }
       }
     } catch (e) {
-      // Fallback to cached data if offline [cite: 51, 107]
+     // Log the error and attempt to load from cache
+     print('Network error occurred: $e');
     }
 
-    // 3. Perform Runtime Merge (API Cache + Favorites + Overrides) [cite: 61, 65, 98]
+    // (API Cache + Favorites + Overrides)
     final List<Map<String, dynamic>> cacheData = await db.query('characters');
     final List<Map<String, dynamic>> favData = await db.query('favorites');
     final List<Map<String, dynamic>> overrideData = await db.query('overrides');
@@ -55,7 +56,7 @@ class CharacterRepositoryImpl {
       final hasOverride = overrides.containsKey(id);
       final edit = overrides[id];
 
-      // Local edits must override API/Cache data [cite: 44, 122]
+      // Cache data
       return CharacterEntity(
         id: id,
         name: hasOverride ? edit!['name'] : json['name'],
@@ -72,7 +73,7 @@ class CharacterRepositoryImpl {
     }).toList();
   }
 
-  // Requirement 2.4: Persist local edits [cite: 33, 47, 60]
+  // local edits
   Future<void> saveLocalEdit(CharacterEntity c) async {
     final db = await dbHelper.db;
     await db.insert('overrides', {
@@ -87,7 +88,7 @@ class CharacterRepositoryImpl {
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  // Requirement 2.3: Persist favorites locally [cite: 29, 31, 59]
+  // favorites locally
   Future<void> toggleFavorite(int id, bool isAdd) async {
     final db = await dbHelper.db;
     if (isAdd) {

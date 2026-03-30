@@ -12,7 +12,7 @@ class HomeNavigation extends StatefulWidget {
 class _HomeNavigationState extends State<HomeNavigation> {
   int _currentIndex = 0;
 
-  // Requirement 2.1 & 2.3: Screens for Character List and Favorites [cite: 10, 30]
+  // Screens for Character List and Favorites
   final List<Widget> _screens = [
     const CharacterListPage(),
     const FavoritesPage(),
@@ -21,7 +21,6 @@ class _HomeNavigationState extends State<HomeNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Extend body behind navbar for a modern floating look
       extendBody: true,
       body: IndexedStack(
         index: _currentIndex,

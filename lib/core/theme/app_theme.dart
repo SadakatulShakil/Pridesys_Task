@@ -10,7 +10,6 @@ class AppTheme {
       secondary: const Color(0xFFb5e2ff), // Blue Sky
       tertiary: const Color(0xFFe89ac7),  // Morty Pink
     ),
-    // Modern Rounded UI for kids
     cardTheme: CardThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 4,

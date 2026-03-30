@@ -13,7 +13,7 @@ class CharacterDetailPage extends StatefulWidget {
 }
 
 class _CharacterDetailPageState extends State<CharacterDetailPage> {
-  // Requirement 2.4: Controllers for editable fields [cite: 34-41]
+  // Controllers for editable fields
   late TextEditingController _nameController;
   late TextEditingController _statusController;
   late TextEditingController _speciesController;
@@ -145,7 +145,6 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
 
                   const SizedBox(height: 30),
 
-                  // Action Buttons: Update and Reset
                   Row(
                     children: [
                       Expanded(
@@ -189,22 +188,19 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
       gender: _genderController.text,
       origin: _originController.text,
       location: _locationController.text,
-      isEdited: true, // [cite: 44, 60]
+      isEdited: true,
     );
     _controller.updateCharacter(updated);
     Get.back();
   }
 
   void _handleReset() {
-    // Logic to reset to original API data
-    // In a real app, you'd delete the row from SQLite 'overrides' table
     Get.defaultDialog(
       title: "Reset Character?",
       middleText: "This will remove your local edits.",
       textConfirm: "Reset",
       confirmTextColor: Colors.white,
       onConfirm: () {
-        // Implementation: _controller.resetToOriginal(widget.character.id);
         Get.back(); // Close dialog
         Get.back(); // Return to list
       },
